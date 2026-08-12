@@ -209,6 +209,10 @@ class InstallViewModel(application: Application) : AndroidViewModel(application)
                 add("EXPLOIT_ATTEMPTS=$EXPLOIT_ATTEMPTS")
                 add("P0_ATTEMPT_TIMEOUT_SEC=$P0_ATTEMPT_TIMEOUT_SEC")
                 cachedP0Offset(bootToken)?.let { add("$P0_OFFSET_ENV=$it") }
+                // T870 测试：KernelSnitch 调参 env（4.19 时序可能需要更大测量次数）
+                rmgKsAppended?.let { add("RMG_KSNITCH_APPENDED=$it") }
+                rmgKsRepeat?.let { add("RMG_KSNITCH_REPEAT=$it") }
+                rmgKsAverage?.let { add("RMG_KSNITCH_AVERAGE=$it") }
             }.toTypedArray()
             ShizukuController.exec(
                 arrayOf(
@@ -232,6 +236,10 @@ class InstallViewModel(application: Application) : AndroidViewModel(application)
                 put("P0_ATTEMPT_TIMEOUT_SEC", P0_ATTEMPT_TIMEOUT_SEC)
                 put("EXPLOIT_ATTEMPT_TIMEOUT_SEC", EXPLOIT_ATTEMPT_TIMEOUT_SEC)
                 cachedP0Offset(bootToken)?.let { put(P0_OFFSET_ENV, it) }
+                // T870 测试：KernelSnitch 调参 env
+                rmgKsAppended?.let { put("RMG_KSNITCH_APPENDED", it) }
+                rmgKsRepeat?.let { put("RMG_KSNITCH_REPEAT", it) }
+                rmgKsAverage?.let { put("RMG_KSNITCH_AVERAGE", it) }
             }
             processBuilder.start()
         }
@@ -542,6 +550,12 @@ class InstallViewModel(application: Application) : AndroidViewModel(application)
         private const val P0_OFFSET_ENV = "SLIDE_P0_OFFSET"
         private const val P0_OFFSET_MAX = 0x1f0000L
         private const val P0_OFFSET_MASK = 0xffffL
+        private val rmgKsAppended: String?
+            get() = System.getProperty("rmg.ks.appended")
+        private val rmgKsRepeat: String?
+            get() = System.getProperty("rmg.ks.repeat")
+        private val rmgKsAverage: String?
+            get() = System.getProperty("rmg.ks.average")
         private const val SHIZUKU_LOG_PATH = "/data/local/tmp/ksu-exploit.log"
         private const val SHIZUKU_HELPER_PATH = "/data/local/tmp/ksu-helper"
         private const val SHIZUKU_PAYLOAD_PATH = "/data/local/tmp/ksu-payload"
