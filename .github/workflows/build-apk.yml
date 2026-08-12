@@ -3,10 +3,11 @@ name: Build T870 APK
 on:
   push:
     branches: [main]
+    tags: ['v*']
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   actions: write
 
 jobs:
@@ -44,3 +45,10 @@ jobs:
           name: rmg-t870-test-apk
           path: app-src/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 14
+
+      - name: Upload APK to Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app-src/app/build/outputs/apk/debug/app-debug.apk
+          generate_release_notes: false
