@@ -536,7 +536,7 @@ class InstallViewModel(application: Application) : AndroidViewModel(application)
     private fun File.readTextIfPresent(): String = if (exists()) readText() else ""
 
     companion object {
-        private const val EXPLOIT_ATTEMPTS = "24"
+        private const val EXPLOIT_ATTEMPTS = "48"
         private const val P0_ATTEMPT_TIMEOUT_SEC = "45"
         private const val EXPLOIT_ATTEMPT_TIMEOUT_SEC = "120"
         private const val EXPLOIT_STALL_MILLIS = 90_000L
