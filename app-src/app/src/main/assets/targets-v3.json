@@ -1,0 +1,26 @@
+{
+ "schemaVersion": 3,
+ "payloads": [
+  {
+   "payloadId": "t870-T870XXS8DXH1",
+   "displayName": "Galaxy Tab S7 | Kernel 4.19.113",
+   "models": [
+    "SM-T870",
+    "SM-T875",
+    "SM-T876B",
+    "SM-T878U"
+   ],
+   "kernelVersions": [
+    "4.19.113"
+   ],
+   "exploit": {
+    "url": "https://cdn.jsdelivr.net/gh/youyoudezhuzhu/rmg-t870@main/artifacts/t870-T870XXS8DXH1/cve-2026-43499-app.so",
+    "size": 126680
+   },
+   "kernelsu": {
+    "url": "https://cdn.jsdelivr.net/gh/youyoudezhuzhu/rmg-t870@main/kernelsu/ksud-t870-kdp",
+    "size": 6756208
+   }
+  }
+ ]
+}
