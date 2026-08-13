@@ -44,17 +44,18 @@ jobs:
       - name: Accept SDK licenses
         run: yes | sdkmanager --licenses > /dev/null 2>&1 || true
 
-      - name: Install NDK 28
+      - name: Install ONDK (lightweight NDK for arm64 Android)
         run: |
-          sdkmanager "ndk;28.2.13612045" > /dev/null 2>&1 || sdkmanager "ndk;28.1.14206865" > /dev/null 2>&1 || echo "NDK installed via fallback"
+          curl -fL -o /tmp/ondk.tar.xz "https://github.com/topjohnwu/ondk/releases/download/r30.1/ondk-r30.1-linux.tar.xz"
+          mkdir -p /tmp/ondk
+          tar -C /tmp/ondk --strip-components=1 -xf /tmp/ondk.tar.xz
+          ls /tmp/ondk/toolchains/llvm/prebuilt/*/bin/aarch64-linux-android35-clang
 
       - name: Build exploit payload (old arch, fixed 4.19 offsets)
         working-directory: /tmp/rmg-src
         run: |
-          export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/28.2.13612045"
-          if [ ! -d "$ANDROID_NDK_HOME" ]; then
-            export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/28.1.14206865"
-          fi
+          export ANDROID_NDK_HOME=/tmp/ondk
+          export NDK_ROOT=/tmp/ondk
           make TARGET=t870-T870XXS8DXH1 APP_PRELOAD
           ls -la build/t870-T870XXS8DXH1/
 
