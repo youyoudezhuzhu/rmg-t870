@@ -56,7 +56,7 @@ jobs:
         run: |
           export ANDROID_NDK_HOME=/tmp/ondk
           export NDK_ROOT=/tmp/ondk
-          make TARGET=t870-T870XXS8DXH1 APP_PRELOAD
+          make TARGET=t870-T870XXS8DXH1
           ls -la build/t870-T870XXS8DXH1/
 
       - name: Copy payload into app assets
