@@ -26,7 +26,8 @@ jobs:
             echo "FAILED to clone rmg-src"
             exit 1
           fi
-          # 用我们修正过的 4.19 target.h 覆盖官方源码
+          # 用我们修正过的 4.19 target.h 覆盖官方源码（t870 目录可能不存在，先创建）
+          mkdir -p /tmp/rmg-src/src/targets/t870-T870XXS8DXH1
           cp $GITHUB_WORKSPACE/patches/t870-target-fixed.h \
              /tmp/rmg-src/src/targets/t870-T870XXS8DXH1/target.h
           echo "target.h 已覆盖为修正版"
