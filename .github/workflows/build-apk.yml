@@ -30,7 +30,9 @@ jobs:
           mkdir -p /tmp/rmg-src/src/targets/t870-T870XXS8DXH1
           cp $GITHUB_WORKSPACE/patches/t870-target-fixed.h \
              /tmp/rmg-src/src/targets/t870-T870XXS8DXH1/target.h
-          echo "target.h 已覆盖为修正版"
+          cp $GITHUB_WORKSPACE/patches/t870-p0-fingerprint.h \
+             /tmp/rmg-src/src/targets/t870-T870XXS8DXH1/p0_fingerprint.h
+          echo "target.h + p0_fingerprint.h 已覆盖为修正版"
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
